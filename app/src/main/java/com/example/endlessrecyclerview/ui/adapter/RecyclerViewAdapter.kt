@@ -65,7 +65,7 @@ class RecyclerViewAdapter : ListAdapter<AdapterItem, RecyclerView.ViewHolder>(Di
     inner class LoadingViewHolder(binding: RecyclerViewItemLoadingBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    private class DiffCallback() : DiffUtil.ItemCallback<AdapterItem>() {
+    private class DiffCallback : DiffUtil.ItemCallback<AdapterItem>() {
         override fun areItemsTheSame(oldItem: AdapterItem, newItem: AdapterItem) =
             oldItem.itemId == newItem.itemId
 

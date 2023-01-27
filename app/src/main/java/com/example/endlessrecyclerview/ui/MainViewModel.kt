@@ -28,7 +28,7 @@ class MainViewModel: ViewModel() {
             // Just to see the loading, because the data is mocked.
             delay(1000)
             _adapterList.value?.filterIsInstance<Animal>()?.run {
-                plus(DataSource.animalsListMocked[currentPage])
+                DataSource.animalsListMocked.getOrNull(currentPage)?.let { plus(it) }
             }?.let {
                 _adapterList.postValue(it)
             }
@@ -37,7 +37,7 @@ class MainViewModel: ViewModel() {
         }
     }
 
-    fun hasAnimalsToLoad() = (_adapterList.value?.size ?: 0) < 224
+    fun hasAnimalsToLoad() = (_adapterList.value?.size ?: 0) < DataSource.animalsListMocked.flatten().size
 
     private fun showLoading() {
         isLoading = true
