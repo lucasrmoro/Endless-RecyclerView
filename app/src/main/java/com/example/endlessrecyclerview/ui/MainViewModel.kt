@@ -27,7 +27,11 @@ class MainViewModel: ViewModel() {
             showLoading()
             // Just to see the loading, because the data is mocked.
             delay(1000)
-            fetchAnimalsListFromCurrentPage()
+            _adapterList.value?.filterIsInstance<Animal>()?.run {
+                plus(DataSource.animalsListMocked[currentPage])
+            }?.let {
+                _adapterList.postValue(it)
+            }
             nextPage()
             dismissLoading()
         }
@@ -48,13 +52,5 @@ class MainViewModel: ViewModel() {
 
     private fun nextPage() {
         currentPage++
-    }
-
-    private fun fetchAnimalsListFromCurrentPage() {
-        _adapterList.value?.filterIsInstance<Animal>()?.run {
-            plus(DataSource.animalsListMocked[currentPage])
-        }?.let {
-            _adapterList.postValue(it)
-        }
     }
 }
